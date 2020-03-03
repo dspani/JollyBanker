@@ -28,3 +28,22 @@ void AccountTree::clear() {}
 
 // check if tree is empty
 bool AccountTree::isEmpty() const { return true; }
+
+bool AccountTree::openAccount(std::string firstName, std::string lastName, int accNum) {
+
+}
+
+// Deposit x amount to the account number
+bool AccountTree::deposit(int accNum, int amount) {
+
+}
+
+// Withdraw money from the account
+bool AccountTree::withdraw(int accNum, int amount) {
+
+}
+
+// Transfer money from x account to y account
+bool AccountTree::transfer(int toAcc, int fromAcc, int amount) {
+
+}

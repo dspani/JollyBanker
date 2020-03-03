@@ -5,6 +5,9 @@
 #ifndef JOLLYBANKER_ACCOUNT_H
 #define JOLLYBANKER_ACCOUNT_H
 
-class account {};
+class Account {
+    Account();
+    ~Account();
+};
 
 #endif // JOLLYBANKER_ACCOUNT_H

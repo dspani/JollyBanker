@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "../../Downloads/banker-master12/account.h"
+#include "account.h"
 #include <iostream>
+#include <string>
 
 class AccountTree {
   public:
@@ -32,7 +33,7 @@ class AccountTree {
     bool isEmpty() const;
 
     // Open an account
-    bool openAccount (string firstName, string lastName , int accNum);
+    bool openAccount (std::string firstName, std::string lastName , int accNum);
 
     // Deposit x amount to the account number
     bool deposit (int accNum, int amount);
