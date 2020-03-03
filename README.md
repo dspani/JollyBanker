@@ -24,3 +24,4 @@ modernize-use-trailing-return-type: not ready yet for auto func() -> int format
 readability-braces-around-statements
 readability-magic-numbers
 
+This file is part of a repository located at https://github.com/jdelliot/banker
