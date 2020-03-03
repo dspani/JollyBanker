@@ -23,3 +23,4 @@ modernize-pass-by-value
 modernize-use-trailing-return-type: not ready yet for auto func() -> int format
 readability-braces-around-statements
 readability-magic-numbers
+
