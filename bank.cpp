@@ -16,7 +16,7 @@ void Bank::processTransactions(const string& fileName) {
     vector<string> data;
     if(infile.is_open()) {
         while(getline(infile, line)) {
-            // adding in to queue
+            // adding in to queue 1
             data.push_back(line);
         }
         infile.close();
