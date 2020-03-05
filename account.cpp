@@ -25,7 +25,7 @@ int Account::getFundAccount(int index) {
 }
 
 bool Account::setFundAccount(int index, int amount){
-    int total = this->funds(index);
+    int total = this->funds[index];
     if (total + amount < 0) {
         return false;
     }
