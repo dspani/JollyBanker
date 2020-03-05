@@ -22,10 +22,10 @@ void Bank::processTransactions(const string& fileName) {
         }
         infile.close();
     }
-      while (!transactions.empty()) {
+   /*while (!transactions.empty()) {
         cout << transactions.front() <<endl;
         transactions.pop();
-    }
+    }*/
 }
 
 void Bank::displayAllBankBalances() const {}

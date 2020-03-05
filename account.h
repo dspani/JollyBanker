@@ -1,4 +1,4 @@
-///
+//
 // Created by changyeon seo on 2020/03/02.
 //
 
@@ -13,15 +13,18 @@
 using namespace std;
 
 class Account {
-  public:
+public:
     Account(std::string first, std::string last, int acc);
     ~Account();
     int getAccNumber();
     string getName();
     int getFundAccount(int index);
-  private:
-    std::string firstName;
-    std::string lastName;
+    bool setFundAccount(int index, int amount);
+
+    friend ostream & operator<<(ostream& out, Account & acc);
+private:
+    string firstName;
+    string lastName;
     int accNum;
     int funds[10];
     std::vector<std::string> fundHistory[10];
