@@ -44,7 +44,6 @@ class AccountTree {
     // Transfer money from x account to y account
     bool transfer(int toAcc, int fromAcc, int amount);
 
-    // fund t
 
 
 

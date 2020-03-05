@@ -10,17 +10,22 @@ Bank::Bank() = default;
 
 Bank::~Bank() = default;
 
+//
 void Bank::processTransactions(const string& fileName) {
     ifstream infile(fileName);
     string line;
-    vector<string> data;
+    queue <string> transactions;
     if(infile.is_open()) {
         while(getline(infile, line)) {
-            // adding in to queue 1
-            data.push_back(line);
+            // adding in to queue
+            transactions.push(line);
         }
         infile.close();
     }
+/*    while (!transactions.empty()) {
+        cout << transactions.front() <<endl;
+        transactions.pop();
+    }*/
 }
 
 void Bank::displayAllBankBalances() const {}
