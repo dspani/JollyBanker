@@ -29,4 +29,6 @@ class Bank {
 
   private:
     AccountTree accounts;
+
+    void process(string transaction);
 };
