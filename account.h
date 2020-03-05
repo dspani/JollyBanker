@@ -10,13 +10,16 @@
 // Name
 // Funds[10]
 // Funds history
+using namespace std;
 
 class Account {
-public:
+  public:
     Account(std::string first, std::string last, int acc);
     ~Account();
-
-private:
+    int getAccNumber();
+    string getName();
+    int getFundAccount(int index);
+  private:
     std::string firstName;
     std::string lastName;
     int accNum;
