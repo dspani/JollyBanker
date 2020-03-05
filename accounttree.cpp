@@ -12,7 +12,16 @@ AccountTree::AccountTree() = default;
 AccountTree::~AccountTree() = default;
 
 // Insert new account
-bool AccountTree::insert(Account* account) { return true; }
+bool AccountTree::insert(Account* account) {
+    if (root == nullptr){
+        root = new Node(account);
+        return true;
+    }
+    else {
+
+    }
+    return true;
+}
 
 // Retrieve account
 // returns true if successful AND *account points to account
