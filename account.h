@@ -14,7 +14,7 @@ using namespace std;
 
 class Account {
 public:
-    Account(char first, std::string last, int acc);
+    Account(string first, string last, int accNumber);
     ~Account();
     int getAccNumber();
     string getName();

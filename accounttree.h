@@ -53,7 +53,7 @@ class AccountTree {
       public:
         explicit Node(Account* account)
             : account{account}, right{nullptr}, left{nullptr} {}
-        Account* getAccount();
+        int getAccountNumber();
         Node* getLeft();
         Node* getRight();
         void setLeft(AccountTree::Node* newNode);
@@ -65,6 +65,7 @@ class AccountTree {
         Node* left;
 
     };
+
 
     Node* root;
 };

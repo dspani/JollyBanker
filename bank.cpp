@@ -42,11 +42,11 @@ void Bank::process(AccountTree tree, string transaction) {
         }
     } else if (transType[0] == 'D') {// deposit
 
-    } else if (transType[0] == 'W') {
+    } else if (transType[0] == 'W') {// withdraw
 
-    } else if (transType[0] == 'T') {
+    } else if (transType[0] == 'T') {// transfer
 
-    } else if (transType[0] == 'H') {
+    } else if (transType[0] == 'H') {// history
 
     } else{
         cerr << "Invalid instruction";

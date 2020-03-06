@@ -14,17 +14,21 @@ AccountTree::~AccountTree() = default;
 // Insert new account
 bool AccountTree::insert(Account* account) {
     Node *newNode = new Node(account);
-    if (root == nullptr){
-        root = newNode;
+    Node * temp = root;
+    if (temp == nullptr){
+        temp = newNode;
         return true;
     }
-    else if (account->getAccNumber() < root->getAccount()->getAccNumber()) {
-        root->setLeft(newNode);
+    while (newNode != nullptr) {
+        if (newNode->getAccountNumber() < temp->getAccountNumber()) {
+            newNode = newNode->getLeft();
+        } else if (newNode->getAccountNumber() > temp->getAccountNumber()) {
+            newNode = newNode->getRight();
+        } else if (newNode->getAccountNumber() == temp->getAccountNumber()){
+            return false;
+        }
+        return true;
     }
-    else {
-        root->setRight(newNode);
-    }
-    return true;
 }
 
 // Retrieve account
@@ -44,6 +48,15 @@ void AccountTree::clear() {}
 bool AccountTree::isEmpty() const { return true; }
 
 bool AccountTree::openAccount(std::string &firstName, std::string &lastName, int accNum) {
+    //if root = null
+    // add at root
+    // if not go left or right based on account number
+    if (root == nullptr){
+        root = new Node(new Account(firstName, lastName, accNum));
+    }
+    else {
+        Node * temp = root;
+    }
     return true;
 }
 
@@ -61,8 +74,8 @@ bool AccountTree::withdraw(int accNum, int amount) {
 bool AccountTree::transfer(int toAcc, int fromAcc, int amount) {
     return true;
 }
-Account* AccountTree::Node::getAccount(){
-    return this->account;
+int AccountTree::Node::getAccountNumber(){
+    return this->account->getAccNumber();
 }
 AccountTree::Node* AccountTree::Node::getLeft(){
     return this->left;

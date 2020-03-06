@@ -4,7 +4,7 @@
 
 #include "account.h"
 
-Account::Account(char first, std::string last, int acc) :
+Account::Account(string first, std::string last, int acc) :
         firstName{ first }, lastName{ last }, accNum{ acc } {
 }
 
