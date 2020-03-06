@@ -30,19 +30,26 @@ void Bank::processTransactions(const string& fileName) {
 }
 
 //processes single transactions
+//processes single transactions
 void Bank::process(string transaction) {
     switch (transaction[0]) {
         case 'O': // open
             // takes first name, last name, account number
+            break;
         case 'D': // deposit
             // takes account number, fund account, amount
+            break;
         case 'W': // withdraw
             // takes account number, fund account, amount
+            break;
         case 'T': // transfer
             // takes from account, from fund, amount, to account, to fund
-        case 'H': ;// history
+            break;
+        case 'H': // history
             // takes account number, or account number and fund
-        dafault:; // do nothing;
+            break;
+        default:
+            break;// do nothing : invalid instruction
     }
 
 }

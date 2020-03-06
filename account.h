@@ -1,7 +1,7 @@
 //
 // Created by changyeon seo on 2020/03/02.
 //
-
+#pragma once
 #ifndef JOLLYBANKER_ACCOUNT_H
 #define JOLLYBANKER_ACCOUNT_H
 #include <string>

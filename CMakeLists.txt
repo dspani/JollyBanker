@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 # need to load data files from current directory as cpp files
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(main.cpp account.cpp accounttree.cpp bank.cpp)
+add_executable(MyProgram main.cpp account.cpp accounttree.cpp bank.cpp)
