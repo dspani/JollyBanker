@@ -53,11 +53,17 @@ class AccountTree {
       public:
         explicit Node(Account* account)
             : account{account}, right{nullptr}, left{nullptr} {}
+        Account* getAccount();
+        Node* getLeft();
+        Node* getRight();
+        void setLeft(AccountTree::Node* newNode);
+        void setRight(AccountTree::Node* newNode);
 
       private:
         Account* account;
         Node* right;
         Node* left;
+
     };
 
     Node* root;
