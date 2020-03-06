@@ -15,8 +15,8 @@ AccountTree::~AccountTree() = default;
 bool AccountTree::insert(Account* account) {
     Node *newNode = new Node(account);
     Node * temp = root;
-    if (temp == nullptr){
-        temp = newNode;
+    if (root == nullptr){
+        root = newNode;
         return true;
     }
     while (newNode != nullptr) {
@@ -47,12 +47,12 @@ void AccountTree::clear() {}
 // check if tree is empty
 bool AccountTree::isEmpty() const { return true; }
 
-bool AccountTree::openAccount(std::string &firstName, std::string &lastName, int accNum) {
+bool AccountTree::openAccount(std::string &last, std::string &first, int accNum) {
     //if root = null
     // add at root
     // if not go left or right based on account number
     if (root == nullptr){
-        root = new Node(new Account(firstName, lastName, accNum));
+        root = new Node(new Account(last, first, accNum));
     }
     else {
         Node * temp = root;
