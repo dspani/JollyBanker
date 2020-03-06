@@ -1,4 +1,4 @@
-//
+;//
 // Created by <Name> on <Date>.
 //
 
@@ -13,12 +13,16 @@ AccountTree::~AccountTree() = default;
 
 // Insert new account
 bool AccountTree::insert(Account* account) {
+    Node *newNode = new Node(account);
     if (root == nullptr){
-        root = new Node(account);
+        root = newNode;
         return true;
     }
+    else if (account->getAccNumber() < root->getAccount()->getAccNumber()) {
+        root->setLeft(newNode);
+    }
     else {
-
+        root->setRight(newNode);
     }
     return true;
 }
@@ -56,4 +60,20 @@ bool AccountTree::withdraw(int accNum, int amount) {
 // Transfer money from x account to y account
 bool AccountTree::transfer(int toAcc, int fromAcc, int amount) {
     return true;
+}
+Account* AccountTree::Node::getAccount(){
+    return this->account;
+}
+AccountTree::Node* AccountTree::Node::getLeft(){
+    return this->left;
+}
+void AccountTree::Node::setLeft(AccountTree::Node* newNode) {
+    this->left = newNode;        // this is Node obj not AccountTree obj
+}
+//return type / location/ name/ arg
+void AccountTree::Node::setRight(AccountTree::Node* newNode) {
+    this->right = newNode;
+}
+AccountTree::Node* AccountTree::Node::getRight(){
+    return this->right;
 }
