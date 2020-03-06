@@ -43,7 +43,7 @@ void AccountTree::clear() {}
 // check if tree is empty
 bool AccountTree::isEmpty() const { return true; }
 
-bool AccountTree::openAccount1(std::string firstName, std::string lastName, int accNum) {
+bool AccountTree::openAccount(std::string &firstName, std::string &lastName, int accNum) {
     return true;
 }
 

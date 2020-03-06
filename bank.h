@@ -11,8 +11,7 @@
 
 
 using namespace std;
-enum type {
-    open = 'O', deposit = 'D', withdraw = 'W', transfer = 'T', history = 'H' };
+
 
 class Bank {
   public:
@@ -21,7 +20,6 @@ class Bank {
 
     // Delete
     ~Bank();
-    //bool openAccount (std::string firstName, std::string lastName , int accNum);
 
     // Reading a string line by line from a transaction file using a switch to
     // process it
@@ -34,5 +32,5 @@ class Bank {
     AccountTree accounts;
     vector<string> parse(string transactions);
 
-    void process(string transaction);
+    void process(AccountTree tree, string transaction);
 };

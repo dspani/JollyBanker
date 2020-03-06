@@ -33,7 +33,7 @@ class AccountTree {
     bool isEmpty() const;
 
     // Open an account
-    bool openAccount1 (std::string firstName, std::string lastName , int accNum);
+    bool openAccount (std::string &firstName, std::string &lastName, int accNum);
 
     // Deposit x amount to the account number
     bool deposit (int accNum, int amount);
