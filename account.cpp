@@ -30,12 +30,37 @@ bool Account::setFundAccount(int index, int amount){
     // can also do other way around
     int total = this->funds[index];
     if (total + amount < 0) {
+        fundCover(index, amount);
         return false;
     }
     else {
         funds[index] += amount;
         return true;
     }
+}
+
+bool Account::fundCover(int index, int amount) {
+    int alt;
+    switch(index){
+    case 0:
+        alt = 1;
+        break;
+    case 1:
+        alt = 0;
+        break;
+    case 2:
+        alt = 1;
+        break;
+    case 3:
+        alt = 2;
+        break;
+    default:
+        return false;
+    }
+
+
+
+
 }
 
 ostream& operator<<(ostream& out, Account & acc) {

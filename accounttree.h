@@ -36,10 +36,10 @@ class AccountTree {
     bool openAccount (std::string &lastName, std::string &firstName, int accNum);
 
     // Deposit x amount to the account number
-    bool deposit (int accNum, int amount);
+    bool deposit (int accNum, int fund,  int amount);
 
     // Withdraw money from the account
-    bool withdraw(int accNum, int amount);
+    bool withdraw(int accNum, int fund, int amount);
 
     // Transfer money from x account to y account
     bool transfer(int toAcc, int fromAcc, int amount);
@@ -58,6 +58,7 @@ class AccountTree {
         Node* getRight();
         void setLeft(AccountTree::Node* newNode);
         void setRight(AccountTree::Node* newNode);
+        Account* getAccount();
 
       private:
         Account* account;

@@ -34,8 +34,21 @@ bool AccountTree::insert(Account* account) {
 // Retrieve account
 // returns true if successful AND *account points to account
 bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
-    return true;
+    Node *curr = root;
+    while (curr->getAccountNumber() != accountNumber) {
+        if (curr->getAccountNumber() < accountNumber) {
+            curr = curr->getRight();
+        } else if ( curr->getAccountNumber() > accountNumber) {
+            curr = curr->getLeft();
+        } else if (accountNumber == curr->getAccountNumber()){
+            account = curr->getAccount();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
 
 // Display information on all accounts
 void AccountTree::display() const {
@@ -61,14 +74,23 @@ bool AccountTree::openAccount(std::string &last, std::string &first, int accNum)
 }
 
 // Deposit x amount to the account number
-bool AccountTree::deposit(int accNum, int amount) {
-    return true;
-}
+bool AccountTree::deposit(int accNum, int fund, int amount) {
+    Account *acc;
+    retrieve(accNum, acc);
+    acc->setFundAccount(amount,)
+    return true; }
 
 // Withdraw money from the account
-bool AccountTree::withdraw(int accNum, int amount) {
-    return true;
-}
+bool AccountTree::withdraw(int accNum, int fund, int amount) {
+    //edge case:
+    // if fund 0 or 1 does not have enough funds, check other fund
+    Account* acc;
+    amount -= amount * 2;
+    if (retrieve(accNum, acc)){
+        acc->setFundAccount(fund, amount);
+        return true;
+    }
+    return false;
 
 // Transfer money from x account to y account
 bool AccountTree::transfer(int toAcc, int fromAcc, int amount) {
@@ -89,4 +111,8 @@ void AccountTree::Node::setRight(AccountTree::Node* newNode) {
 }
 AccountTree::Node* AccountTree::Node::getRight(){
     return this->right;
+}
+
+Account* AccountTree::Node::getAccount(){
+    return this->account;
 }

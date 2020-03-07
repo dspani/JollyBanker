@@ -40,10 +40,23 @@ void Bank::process(AccountTree tree, string transaction) {
         if (!tree.openAccount(parsed[1], parsed[2], accNum)) {
             cerr << "Error opening account";
         }
-    } else if (transType[0] == 'D') {// deposit
+    } else if (transType[0] == 'D') {// deposit add it to history
+        string accNum = parsed[1];
+        int fundNumber = accNum.back();
+        accNum.pop_back();
+        if (!tree.deposit(stoi(accNum), fundNumber,stoi(parsed[2]))) {
+            cerr << "Error: deposit not allowed";
+        }
+
 
     } else if (transType[0] == 'W') {// withdraw
-
+        // takes account number, fund account, amount
+        string accNum = parsed[1];
+        int fundNumber = accNum.back();
+        accNum.pop_back();
+        if (!tree.withdraw(stoi(parsed[1]), fundNumber, stoi(parsed[2]))) {
+            cerr << "Error: withdraw not allowed";
+        }
     } else if (transType[0] == 'T') {// transfer
 
     } else if (transType[0] == 'H') {// history

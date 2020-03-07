@@ -13,7 +13,7 @@
 using namespace std;
 
 class Account {
-public:
+  public:
     Account(string last, string first, int accNumber);
     ~Account();
     int getAccNumber();
@@ -21,13 +21,14 @@ public:
     int getFundAccount(int index);
     bool setFundAccount(int index, int amount);
 
-    friend ostream & operator<<(ostream& out, Account & acc);
-private:
+    friend ostream& operator<<(ostream& out, Account& acc);
+
+  private:
     string firstName;
     string lastName;
     int accNum;
     int funds[10];
     std::vector<std::string> fundHistory[10];
+    bool fundCover(int index, int amount);
 };
-
 #endif // JOLLYBANKER_ACCOUNT_H
