@@ -6,6 +6,9 @@
 
 Account::Account(string last, std::string first, int acc) :
         lastName{ last }, firstName{ first }, accNum{ acc } {
+    for (int i = 0; i < 10; i++) {
+        funds[i] = 0;
+    }
 }
 
 Account::~Account() {
@@ -41,7 +44,7 @@ bool Account::setFundAccount(int index, int amount){
                                     // negative number
 bool Account::fundCover(int index, int amount) {
     int alt;
-    switch(index) {
+    switch (index) {
     case 0:
         alt = 1;
         break;
@@ -57,9 +60,10 @@ bool Account::fundCover(int index, int amount) {
     default:
         return false;
     }
-    if (funds[index] + funds[alt]- amount >= 0) {
+    if (funds[index] + funds[alt] - amount >= 0) {
+        int restAmount = amount + funds[index];
         funds[index] = 0;
-        funds[alt] = funds[index] + funds[alt] - amount;
+        funds[alt] += restAmount;
         return true;
     }
     // add to history with an error message

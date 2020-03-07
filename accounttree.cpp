@@ -17,20 +17,6 @@ bool AccountTree::insert(Account* account) {
     
     root = insertRecursive(account, root);
     return true;
-    /*if (root == nullptr){
-        root = newNode;
-        return true;
-    }
-    while (newNode != nullptr) {
-        if (newNode->getAccountNumber() < temp->getAccountNumber()) {
-            newNode = newNode->getLeft();
-        } else if (newNode->getAccountNumber() > temp->getAccountNumber()) {
-            newNode = newNode->getRight();
-        } else if (newNode->getAccountNumber() == temp->getAccountNumber()){
-            return false;
-        }
-        return true;
-    }*/
 }
 
 AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::Node * node) {
@@ -49,26 +35,27 @@ AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::N
 // Retrieve account
 // returns true if successful AND *account points to account
 bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
-    Node *curr = root;
-    if (curr->getAccountNumber() == accountNumber) {
-        account = curr->getAccount();
-        return true;
-    }
-    while (curr->getAccountNumber() != accountNumber && curr != nullptr) {
-        if (curr->getAccountNumber() < accountNumber) {
-            curr = curr->getRight();
-        } else if ( curr->getAccountNumber() > accountNumber && curr->getRight() != nullptr) {
-            curr = curr->getLeft();
-        } else if (accountNumber == curr->getAccountNumber() && curr->getLeft() != nullptr){
-            account = curr->getAccount();
-            return true;
-        } else {
-            return false;
-        }
-    }
-    return false;
+    int acc = accountNumber;
+    return retrieveHelper(root, acc, account);
+    
 }
 
+bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const{
+    bool success = false;
+    if (node != nullptr) {
+        if (accountNumber == node->getAccountNumber()) {
+            success = true;
+            account = node->getAccount();
+        }
+        else if (accountNumber < node->getAccountNumber()) {
+            success = retrieveHelper(node->getLeft(), accountNumber, account);
+        }
+        else {
+            success = retrieveHelper(node->getRight(), accountNumber, account);
+        }
+    }
+    return success;
+}
 
 // Display information on all accounts
 void AccountTree::display() const {
@@ -108,10 +95,25 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
     }
     return false;
 }
+
+
 // Transfer money from x account to y account
-bool AccountTree::transfer(int toAcc, int fromAcc, int amount) {
-    return true;
+bool AccountTree::transfer(int fromAcc, int toAcc, int amount) {
+    int toFund = toAcc % 10;
+    int fromFund = fromAcc % 10;
+    Account* to;
+    Account* from;
+    
+    if (retrieve(fromAcc, from) && retrieve(toAcc, to)) {
+        if (from->getFundAccount(fromFund) - amount > 0) {
+            from->setFundAccount(fromFund, from->getFundAccount(fromFund) - amount);
+            to->setFundAccount(toFund, to->getFundAccount(toFund) + amount);
+            return true;
+        }
+    }
+    return false;
 }
+
 int AccountTree::Node::getAccountNumber(){
     return this->account->getAccNumber();
 }

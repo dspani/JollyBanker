@@ -42,7 +42,7 @@ class AccountTree {
     bool withdraw(int accNum, int fund, int amount);
 
     // Transfer money from x account to y account
-    bool transfer(int toAcc, int fromAcc, int amount);
+    bool transfer(int fromAcc, int toAcc, int amount);
 
     
     
@@ -68,6 +68,7 @@ class AccountTree {
     };
 
     AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
+    bool retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const;
 
     Node* root;
 };
