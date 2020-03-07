@@ -38,10 +38,10 @@ bool Account::setFundAccount(int index, int amount){
         return true;
     }
 }
-
+                                    // negative number
 bool Account::fundCover(int index, int amount) {
     int alt;
-    switch(index){
+    switch(index) {
     case 0:
         alt = 1;
         break;
@@ -57,9 +57,13 @@ bool Account::fundCover(int index, int amount) {
     default:
         return false;
     }
-
-
-
+    if (funds[index] + funds[alt]- amount >= 0) {
+        funds[index] = 0;
+        funds[alt] = funds[index] + funds[alt] - amount;
+        return true;
+    }
+    // add to history with an error message
+    return false;
 
 }
 

@@ -77,21 +77,22 @@ bool AccountTree::openAccount(std::string &last, std::string &first, int accNum)
 bool AccountTree::deposit(int accNum, int fund, int amount) {
     Account *acc;
     retrieve(accNum, acc);
-    acc->setFundAccount(amount,)
-    return true; }
+    acc->setFundAccount(fund, amount);
+    return true;
+}
 
 // Withdraw money from the account
 bool AccountTree::withdraw(int accNum, int fund, int amount) {
-    //edge case:
+    // edge case:
     // if fund 0 or 1 does not have enough funds, check other fund
     Account* acc;
     amount -= amount * 2;
-    if (retrieve(accNum, acc)){
+    if (retrieve(accNum, acc)) {
         acc->setFundAccount(fund, amount);
         return true;
     }
     return false;
-
+}
 // Transfer money from x account to y account
 bool AccountTree::transfer(int toAcc, int fromAcc, int amount) {
     return true;
