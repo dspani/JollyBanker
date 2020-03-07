@@ -26,6 +26,11 @@ class AccountTree {
     // Display information on all accounts
     void display() const;
 
+    void displayHistory(int accountNumber) const;
+    void displayFundHistory(int accountNumber, int fund) const;
+    void addToHistory(string trans, int accNum, int fund) const;
+
+
     // delete all information in AccountTree
     void clear();
 
@@ -42,10 +47,10 @@ class AccountTree {
     bool withdraw(int accNum, int fund, int amount);
 
     // Transfer money from x account to y account
-    bool transfer(int fromAcc, int toAcc, int amount);
+    bool transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount);
 
-    
-    
+
+
 
 
   private:

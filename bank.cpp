@@ -39,50 +39,51 @@ void Bank::process(AccountTree& tree, string transaction) {
         // takes first name[1], last name[2], account numb
         int accNum = stoi(parsed[3]);
         if (!tree.openAccount(parsed[1], parsed[2], accNum)) {
-            cerr << "Error opening account" << endl;
         }
-        else {
-            //add to history
-        }
-    } else if (transType[0] == 'D') {// deposit add it to history
+    } else if (transType[0] == 'D') { // deposit add it to history
         string accNum = parsed[1];
-        int fundNumber = accNum.back() -48;
+        int fundNumber = accNum.back() - 48;
         accNum.pop_back();
-        if (!tree.deposit(stoi(accNum), fundNumber,stoi(parsed[2]))) {
-            cerr << "Error: deposit not allowed" << endl;
-        }
-        else {
-            //add to history
+        if (!tree.deposit(stoi(accNum), fundNumber, stoi(parsed[2]))) {
+            tree.addToHistory(transaction + " (Failed)", stoi(accNum),
+                              fundNumber);
+        } else {
+            tree.addToHistory(transaction, stoi(accNum), fundNumber);
         }
 
-
-    } else if (transType[0] == 'W') {// withdraw
+    } else if (transType[0] == 'W') { // withdraw
         // takes account number, fund account, amount
         string accNum = parsed[1];
-        int fundNumber = accNum.back() -48;
+        int fundNumber = accNum.back() - 48;
         accNum.pop_back();
-        if (!tree.withdraw(stoi(accNum), fundNumber, stoi(parsed[2]))) {
-            cerr << "Error: withdraw not allowed" << endl;
+        if (!tree.withdraw(stoi(accNum), fundNumber, stoi(parsed[2]))) { //and if width
+            tree.addToHistory(transaction + " (Failed)", stoi(accNum), //
+                              fundNumber);
+        } else {
+            tree.addToHistory(transaction, stoi(accNum), fundNumber);
         }
-        else {
-            //add to history
+    } else if (transType[0] == 'T') { // transfer
+        int toFund = stoi(parsed[3]) % 10;
+        int fromFund = stoi(parsed[1]) % 10;
+        int toAcc = stoi(parsed[3]) / 10;  // acc number ex)1234
+        int fromAcc = stoi(parsed[1]) / 10;
+        if (tree.transfer(fromAcc, fromFund,toAcc, toFund , stoi(parsed[2]))) {
+            tree.addToHistory(transaction, toAcc, toFund);  //check this
+            tree.addToHistory(transaction, fromAcc, fromFund);
+        } else {
+            tree.addToHistory(transaction + " (Failed)", toAcc, toFund);
+            tree.addToHistory(transaction + " (Failed)", fromAcc, fromFund);
         }
-    } 
-    else if (transType[0] == 'T') {// transfer
-        
-        if (tree.transfer(stoi(parsed[1]), stoi(parsed[3]), stoi(parsed[2]))) {
-            //add to history
+    } else if (transType[0] == 'H') { // history
+        if (parsed[1].length() == 4) {
+            tree.displayHistory(stoi(parsed[1]));
+        } else {
+            string accNum = parsed[1];
+            int fundNumber = accNum.back() - 48;
+            accNum.pop_back();
+            tree.displayFundHistory(stoi(parsed[1]), stoi(accNum));
         }
-    } 
-    else if (transType[0] == 'H') {// history
-        /*if (parsed[1].length() == 4) {
-            tree.displayHistory(parsed[1]);
-        }
-        else {
-            tree.displayFundHistory(parsed[1]);
-        }*/
-    } 
-    else{
+    } else {
         cerr << "Invalid instruction";
     }
 }

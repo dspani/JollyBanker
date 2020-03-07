@@ -4,7 +4,7 @@
 
 #include "account.h"
 
-Account::Account(string last, std::string first, int acc) :
+Account::Account(string last, string first, int acc) :
         lastName{ last }, firstName{ first }, accNum{ acc } {
     for (int i = 0; i < 10; i++) {
         funds[i] = 0;
@@ -20,9 +20,17 @@ int Account::getAccNumber() {
 }
 
 string Account::getName() {
-    return this->firstName + this->lastName;
+    return this->lastName + " " + this->firstName;
+}
+string Account::fundName(int index) {
+    vector<string> fundName {"Monday Market", "Prime Money Market" , "Long-Term Bond" , "Short-Term Bond", "500 Index Fund", "Capital Value Fund",
+                             "Growth Equity Fund", "Growth Index Fund", "Value Fund", "Value Stock Index"};
+     return fundName[index];
 }
 
+vector <string> Account::getFundHistory(int index) {
+    return fundHistory[index];
+}
 int Account::getFundAccount(int index) {
     return this->funds[index];
 }
@@ -33,13 +41,15 @@ bool Account::setFundAccount(int index, int amount){
     // can also do other way around
     int total = this->funds[index];
     if (total + amount < 0) {
-        fundCover(index, amount);
-        return false;
+        return fundCover(index, amount);
     }
     else {
         funds[index] += amount;
         return true;
     }
+}
+void Account::setFundHistory(string transaction, int fund) {
+    fundHistory[fund].push_back(transaction);
 }
                                     // negative number
 bool Account::fundCover(int index, int amount) {
@@ -60,7 +70,7 @@ bool Account::fundCover(int index, int amount) {
     default:
         return false;
     }
-    if (funds[index] + funds[alt] - amount >= 0) {
+    if (funds[index] + funds[alt] + amount >= 0) {
         int restAmount = amount + funds[index];
         funds[index] = 0;
         funds[alt] += restAmount;

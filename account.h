@@ -18,8 +18,11 @@ class Account {
     ~Account();
     int getAccNumber();
     string getName();
+    string fundName(int index);
     int getFundAccount(int index);
     bool setFundAccount(int index, int amount);
+    void setFundHistory(string transaction, int fund);
+    vector <string> getFundHistory(int index);
 
     friend ostream& operator<<(ostream& out, Account& acc);
 

@@ -37,7 +37,7 @@ AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::N
 bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
     int acc = accountNumber;
     return retrieveHelper(root, acc, account);
-    
+
 }
 
 bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const{
@@ -60,7 +60,29 @@ bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Ac
 // Display information on all accounts
 void AccountTree::display() const {
 }
+void AccountTree::displayHistory(int accountNumber) const {
+    Account* acc;
+    retrieve(accountNumber, acc);
+    cout << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
+    for (int i = 0; i < 10; i++) {
+        cout << acc->fundName(i) << ": $" << acc->getFundAccount(i) << endl;
+        vector<string> fundHistory = acc->getFundHistory(i);
+        for (int j = 0; j < fundHistory.size(); j++) {
+            cout << "        " << fundHistory[j] << endl;
 
+        }
+    }
+}
+void AccountTree::addToHistory(string trans, int accNum, int fund) const {
+    Account* acc;
+    retrieve(accNum, acc);
+    acc->setFundHistory(trans, fund);
+}
+
+void AccountTree::displayFundHistory(int accountNumber, int fund) const {
+    Account *acc;
+    //cout << "Displaying Transaction History for " << acc->getName() << "'s " << acc->
+}
 // delete all information in AccountTree
 void AccountTree::clear() {}
 
@@ -90,23 +112,26 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
     Account* acc;
     amount -= amount * 2;
     if (retrieve(accNum, acc)) {
-        acc->setFundAccount(fund, amount);
-        return true;
+        if (acc->setFundAccount(fund, amount)) {
+            return true;
+        } // w 20000 should return false?
+        return false;
     }
-    return false;
 }
 
 
 // Transfer money from x account to y account
-bool AccountTree::transfer(int fromAcc, int toAcc, int amount) {
-    int toFund = toAcc % 10;
-    int fromFund = fromAcc % 10;
+bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount) {
+    //int toFund = toAcc % 10;
+    //int fromFund = fromAcc % 10;
+    //toAcc /= 10;
+    //fromAcc /= 10;
     Account* to;
     Account* from;
     
     if (retrieve(fromAcc, from) && retrieve(toAcc, to)) {
-        if (from->getFundAccount(fromFund) - amount > 0) {
-            from->setFundAccount(fromFund, from->getFundAccount(fromFund) - amount);
+        if (from->getFundAccount(fromFund) - amount >= 0) {
+            from->setFundAccount(fromFund, from->getFundAccount(fromFund) - amount - (amount * 2));
             to->setFundAccount(toFund, to->getFundAccount(toFund) + amount);
             return true;
         }
