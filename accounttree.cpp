@@ -10,11 +10,12 @@ AccountTree::AccountTree() : root{ nullptr } {
 }
 
 // Delete all nodes in BST
-AccountTree::~AccountTree() = default;
+AccountTree::~AccountTree() {
+    clear();
+}
 
 // Insert new account
 bool AccountTree::insert(Account* account) {
-    
     root = insertRecursive(account, root);
     return true;
 }
@@ -40,7 +41,7 @@ bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
 
 }
 
-bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const{
+bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const {
     bool success = false;
     if (node != nullptr) {
         if (accountNumber == node->getAccountNumber()) {
@@ -59,7 +60,24 @@ bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Ac
 
 // Display information on all accounts
 void AccountTree::display() const {
+    cout << "Displaying Transaction History for All Accounts: " << endl;
+    AccountTree::Node* node = root;
+    displayHelper(node);
+    
 }
+
+void AccountTree::displayHelper(AccountTree::Node* temp) const {
+    if (temp != nullptr) {
+        if (temp->getLeft() != nullptr) {
+            displayHelper(temp->getLeft());
+        }
+        if (temp->getRight() != nullptr) {
+            displayHelper(temp->getRight());
+        }
+        displayHistory(temp->getAccountNumber());
+    }
+}
+
 void AccountTree::displayHistory(int accountNumber) const {
     Account* acc;
     retrieve(accountNumber, acc);
@@ -75,16 +93,42 @@ void AccountTree::displayHistory(int accountNumber) const {
 }
 void AccountTree::addToHistory(string trans, int accNum, int fund) const {
     Account* acc;
-    retrieve(accNum, acc);
-    acc->setFundHistory(trans, fund);
+    if (retrieve(accNum, acc)) {
+        acc->setFundHistory(trans, fund);
+    }
 }
 
 void AccountTree::displayFundHistory(int accountNumber, int fund) const {
-    Account *acc;
-    //cout << "Displaying Transaction History for " << acc->getName() << "'s " << acc->
+    Account* acc;
+    retrieve(accountNumber, acc);
+    cout << "Displaying Transaction History for " << acc->getName() 
+        << "'s " << acc->fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
+    vector<string> fundHistory = acc->getFundHistory(fund);
+    for (int i = 0; i < fundHistory.size(); i++) {
+        cout << fundHistory[i] << endl;
+    }
 }
+
 // delete all information in AccountTree
-void AccountTree::clear() {}
+void AccountTree::clear() {
+    //postorder traversal
+    if (root != nullptr) {
+        clearHelper(root);
+    }
+}
+
+void AccountTree::clearHelper(AccountTree::Node* node) {
+    if (node != nullptr) {
+        if (node->getLeft() != nullptr) {
+            clearHelper(node->getLeft());
+        }
+        if (node->getRight() != nullptr) {
+            clearHelper(node->getRight());
+        }
+        delete node->getAccount();
+        delete node;
+    }
+}
 
 // check if tree is empty
 bool AccountTree::isEmpty() const { return true; }
@@ -93,8 +137,12 @@ bool AccountTree::openAccount(std::string &last, std::string &first, int accNum)
     //if root = null
     // add at root
     // if not go left or right based on account number
-    Account *acc = new Account(last, first, accNum);
-    return insert(acc);
+    Account *acc;
+    if (!retrieve(accNum, acc)) {
+        acc = new Account(last, first, accNum);
+        return insert(acc);
+    }
+    return false;
 }
 
 // Deposit x amount to the account number
@@ -114,7 +162,7 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
     if (retrieve(accNum, acc)) {
         if (acc->setFundAccount(fund, amount)) {
             return true;
-        } // w 20000 should return false?
+        } 
         return false;
     }
 }
@@ -131,7 +179,7 @@ bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int
     
     if (retrieve(fromAcc, from) && retrieve(toAcc, to)) {
         if (from->getFundAccount(fromFund) - amount >= 0) {
-            from->setFundAccount(fromFund, from->getFundAccount(fromFund) - amount - (amount * 2));
+            from->setFundAccount(fromFund, amount - (amount * 2));
             to->setFundAccount(toFund, to->getFundAccount(toFund) + amount);
             return true;
         }

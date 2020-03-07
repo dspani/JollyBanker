@@ -7,6 +7,7 @@
 #include "account.h"
 #include <iostream>
 #include <string>
+#include <cassert>
 
 class AccountTree {
   public:
@@ -74,6 +75,8 @@ class AccountTree {
 
     AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
     bool retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const;
+    void clearHelper(AccountTree::Node* node);
+    void displayHelper(AccountTree::Node* temp) const;
 
     Node* root;
 };
