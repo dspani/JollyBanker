@@ -42,7 +42,7 @@ void Bank::process(AccountTree tree, string transaction) {
         }
     } else if (transType[0] == 'D') {// deposit add it to history
         string accNum = parsed[1];
-        int fundNumber = accNum.back();
+        int fundNumber = accNum.back() -48;
         accNum.pop_back();
         if (!tree.deposit(stoi(accNum), fundNumber,stoi(parsed[2]))) {
             cerr << "Error: deposit not allowed";

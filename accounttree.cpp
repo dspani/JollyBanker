@@ -35,18 +35,19 @@ bool AccountTree::insert(Account* account) {
 // returns true if successful AND *account points to account
 bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
     Node *curr = root;
-    while (curr->getAccountNumber() != accountNumber) {
+    while (curr->getAccountNumber() != accountNumber && curr != nullptr) {
         if (curr->getAccountNumber() < accountNumber) {
             curr = curr->getRight();
-        } else if ( curr->getAccountNumber() > accountNumber) {
+        } else if ( curr->getAccountNumber() > accountNumber && curr->getRight() != nullptr) {
             curr = curr->getLeft();
-        } else if (accountNumber == curr->getAccountNumber()){
+        } else if (accountNumber == curr->getAccountNumber() && curr->getLeft() != nullptr){
             account = curr->getAccount();
             return true;
         } else {
             return false;
         }
     }
+    return false;
 }
 
 
@@ -64,13 +65,8 @@ bool AccountTree::openAccount(std::string &last, std::string &first, int accNum)
     //if root = null
     // add at root
     // if not go left or right based on account number
-    if (root == nullptr){
-        root = new Node(new Account(last, first, accNum));
-    }
-    else {
-        Node * temp = root;
-    }
-    return true;
+    Account *acc = new Account(last, first, accNum);
+    return insert(acc);
 }
 
 // Deposit x amount to the account number
