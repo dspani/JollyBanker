@@ -32,6 +32,7 @@ void Bank::processTransactions(const string& fileName) {
 
 //processes single transactions
 void Bank::process(AccountTree& tree, string transaction) {
+    cout << transaction << endl;
     vector<string> parsed = parse(transaction);
     string transType = parsed[0];
     if (transType[0] == 'O') { // open
