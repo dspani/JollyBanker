@@ -27,11 +27,11 @@ void Bank::processTransactions(const string& fileName) {
    while (!transactions.empty()) {
         process(tree, transactions.front());
         transactions.pop();
-    }
+   }
 }
 
 //processes single transactions
-void Bank::process(AccountTree tree, string transaction) {
+void Bank::process(AccountTree& tree, string transaction) {
     vector<string> parsed = parse(transaction);
     string transType = parsed[0];
     if (transType[0] == 'O') { // open
@@ -80,6 +80,7 @@ void Bank::process(AccountTree tree, string transaction) {
 
     }
 }
+
 vector<string> Bank::parse(string transactions){
     vector<string> result;
     char breakPoint = ' ';

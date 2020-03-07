@@ -6,16 +6,18 @@
 
 // empty
 
-AccountTree::AccountTree() = default;
+AccountTree::AccountTree() : root{ nullptr } {
+}
 
 // Delete all nodes in BST
 AccountTree::~AccountTree() = default;
 
 // Insert new account
 bool AccountTree::insert(Account* account) {
-    Node *newNode = new Node(account);
-    Node * temp = root;
-    if (root == nullptr){
+    
+    root = insertRecursive(account, root);
+    return true;
+    /*if (root == nullptr){
         root = newNode;
         return true;
     }
@@ -28,13 +30,30 @@ bool AccountTree::insert(Account* account) {
             return false;
         }
         return true;
+    }*/
+}
+
+AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::Node * node) {
+    if (node == nullptr) {
+        node = new Node(account);
     }
+    else if (account->getAccNumber() < node->getAccountNumber()) {
+        node->setLeft(insertRecursive(account, node->getLeft()));
+    }
+    else {
+        node->setRight(insertRecursive(account, node->getRight()));
+    }
+    return node;
 }
 
 // Retrieve account
 // returns true if successful AND *account points to account
 bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
     Node *curr = root;
+    if (curr->getAccountNumber() == accountNumber) {
+        account = curr->getAccount();
+        return true;
+    }
     while (curr->getAccountNumber() != accountNumber && curr != nullptr) {
         if (curr->getAccountNumber() < accountNumber) {
             curr = curr->getRight();

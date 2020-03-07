@@ -44,8 +44,8 @@ class AccountTree {
     // Transfer money from x account to y account
     bool transfer(int toAcc, int fromAcc, int amount);
 
-
-
+    
+    
 
 
   private:
@@ -67,6 +67,7 @@ class AccountTree {
 
     };
 
+    AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
 
     Node* root;
 };
