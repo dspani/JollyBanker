@@ -31,7 +31,7 @@ class Account {
     string lastName;
     int accNum;
     int funds[10];
-    std::vector<std::string> fundHistory[11];
+    std::vector<std::string> fundHistory[10];
     bool fundCover(int index, int amount);
 };
 #endif // JOLLYBANKER_ACCOUNT_H

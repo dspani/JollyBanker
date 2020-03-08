@@ -5,7 +5,7 @@
 #pragma once
 
 #include "accounttree.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <fstream>
 #include <sstream>
 #include <queue>
@@ -33,7 +33,7 @@ class Bank {
 
   private:
     AccountTree accounts;
-    vector<string> parse(string transactions);
+    static vector<string> parse(string& transactions);
 
-    void process(AccountTree& tree, string transaction);
+    void process(AccountTree& tree, string& transaction);
 };

@@ -29,7 +29,7 @@ class AccountTree {
 
     void displayHistory(int accountNumber) const;
     void displayFundHistory(int accountNumber, int fund) const;
-    void addToHistory(string trans, int accNum, int fund) const;
+    void addToHistory(string& trans, int accNum, int fund) const;
 
 
     // delete all information in AccountTree

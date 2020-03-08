@@ -20,7 +20,7 @@ bool AccountTree::insert(Account* account) {
     return true;
 }
 
-AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::Node * node) {
+AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::Node* node) {
     if (node == nullptr) {
         node = new Node(account);
     }
@@ -85,13 +85,14 @@ void AccountTree::displayHistory(int accountNumber) const {
     for (int i = 0; i < 10; i++) {
         cout << acc->fundName(i) << ": $" << acc->getFundAccount(i) << endl;
         vector<string> fundHistory = acc->getFundHistory(i);
-        for (int j = 0; j < fundHistory.size(); j++) {
-            cout << "        " << fundHistory[j] << endl;
-
+        for (auto it = fundHistory.begin();
+        it != fundHistory.end(); ++it) {
+            cout << "\t" << *it << endl;
         }
     }
 }
-void AccountTree::addToHistory(string trans, int accNum, int fund) const {
+
+void AccountTree::addToHistory(string& trans, int accNum, int fund) const {
     Account* acc;
     if (retrieve(accNum, acc)) {
         acc->setFundHistory(trans, fund);
@@ -104,14 +105,16 @@ void AccountTree::displayFundHistory(int accountNumber, int fund) const {
     cout << "Displaying Transaction History for " << acc->getName() 
         << "'s " << acc->fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
     vector<string> fundHistory = acc->getFundHistory(fund);
-    for (int i = 0; i < fundHistory.size(); i++) {
-        cout << fundHistory[i] << endl;
+
+    for (auto it = fundHistory.begin();
+         it != fundHistory.end(); ++it) {
+        cout << "\t" << *it << endl;
     }
 }
 
 // delete all information in AccountTree
 void AccountTree::clear() {
-    //postorder traversal
+    //post order traversal
     if (root != nullptr) {
         clearHelper(root);
     }
@@ -130,10 +133,7 @@ void AccountTree::clearHelper(AccountTree::Node* node) {
     }
 }
 
-// check if tree is empty
-bool AccountTree::isEmpty() const { return true; }
-
-bool AccountTree::openAccount(std::string &last, std::string &first, int accNum) {
+bool AccountTree::openAccount(string &last, string &first, int accNum) {
     //if root = null
     // add at root
     // if not go left or right based on account number
@@ -160,29 +160,33 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
     Account* acc;
     amount -= amount * 2;
     if (retrieve(accNum, acc)) {
-        if (acc->setFundAccount(fund, amount)) {
-            return true;
-        } 
-        return false;
+        return acc->setFundAccount(fund, amount);
     }
+    return false;
 }
 
 
 // Transfer money from x account to y account
 bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount) {
-    //int toFund = toAcc % 10;
-    //int fromFund = fromAcc % 10;
-    //toAcc /= 10;
-    //fromAcc /= 10;
     Account* to;
     Account* from;
-    
-    if (retrieve(fromAcc, from) && retrieve(toAcc, to)) {
-        if (from->getFundAccount(fromFund) - amount >= 0) {
-            from->setFundAccount(fromFund, amount - (amount * 2));
-            to->setFundAccount(toFund, to->getFundAccount(toFund) + amount);
-            return true;
+
+    if (retrieve(fromAcc, from)) {
+        if (retrieve(toAcc, to)) {
+            if (from->getFundAccount(fromFund) - amount >= 0) {
+                from->setFundAccount(fromFund, amount - (amount * 2));
+                to->setFundAccount(toFund, to->getFundAccount(toFund) + amount);
+                return true;
+            }
         }
+        else {
+            cout << "ERROR: Could not find Account " << toAcc;
+            cout << ". Transfer cancelled." << endl;
+        }
+    }
+    else {
+        cout << "ERROR: Could not find Account " << fromAcc;
+        cout << ". Transfer cancelled." << endl;
     }
     return false;
 }
