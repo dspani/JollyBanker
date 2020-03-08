@@ -75,7 +75,7 @@ class AccountTree {
 
     AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
     bool retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const;
-    void clearHelper(AccountTree::Node* node);
+    static void clearHelper(AccountTree::Node* node);
     void displayHelper(AccountTree::Node* temp) const;
 
     Node* root;

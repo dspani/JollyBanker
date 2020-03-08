@@ -43,7 +43,7 @@ void Bank::process(AccountTree& tree, string& transaction) {
         if (!tree.openAccount(parsed[1], parsed[2], accNum)) {
             //fund 10 shows errors in opening accounts
             cout << "ERROR: Account " + parsed[3] +
-                " already open. Transaction refused." << endl;
+                    " already open. Transaction refused." << endl;
         }
     } else if (transType[0] == 'D') { // deposit add it to history
         string accNum = parsed[1];
@@ -72,19 +72,17 @@ void Bank::process(AccountTree& tree, string& transaction) {
         int fromFund = stoi(parsed[1]) % 10;
         int toAcc = stoi(parsed[3]) / 10;  // acc number ex)1234
         int fromAcc = stoi(parsed[1]) / 10;
-        if (tree.transfer(fromAcc, fromFund,toAcc, toFund , stoi(parsed[2]))) {
+        if (tree.transfer(fromAcc, fromFund, toAcc, toFund, stoi(parsed[2]))) {
             tree.addToHistory(transaction, toAcc, toFund);  //check this
             tree.addToHistory(transaction, fromAcc, fromFund);
-        }
-        else {
+        } else {
             tree.addToHistory(transaction + " (Failed)", toAcc, toFund);
             tree.addToHistory(transaction + " (Failed)", fromAcc, fromFund);
         }
     } else if (transType[0] == 'H') { // history
         if (parsed[1].length() == 4) {
             tree.displayHistory(stoi(parsed[1]));
-        }
-        else {
+        } else {
             string accNum = parsed[1];
             int fundNumber = accNum.back() - 48;
             accNum.pop_back();

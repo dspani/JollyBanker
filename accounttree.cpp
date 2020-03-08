@@ -100,10 +100,10 @@ void AccountTree::addToHistory(string& trans, int accNum, int fund) const {
 }
 
 void AccountTree::displayFundHistory(int accountNumber, int fund) const {
-    Account* acc;
+    Account *acc;
     retrieve(accountNumber, acc);
-    cout << "Displaying Transaction History for " << acc->getName() 
-        << "'s " << acc->fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
+    cout << "Displaying Transaction History for " << acc->getName()
+         << "'s " << acc->fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
     vector<string> fundHistory = acc->getFundHistory(fund);
 
     for (auto it = fundHistory.begin();
