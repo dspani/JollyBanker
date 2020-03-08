@@ -14,14 +14,14 @@ using namespace std;
 
 class Account {
   public:
-    Account(string last, string first, int accNumber);
+    Account(string& last, string& first, int accNumber);
     ~Account();
     int getAccNumber();
     string getName();
-    string fundName(int index);
+    static string fundName(int index);
     int getFundAccount(int index);
     bool setFundAccount(int index, int amount);
-    void setFundHistory(string transaction, int fund);
+    void setFundHistory(string& transaction, int fund);
     vector <string> getFundHistory(int index);
 
     friend ostream& operator<<(ostream& out, Account& acc);
@@ -30,7 +30,7 @@ class Account {
     string firstName;
     string lastName;
     int accNum;
-    int funds[10];
+    int funds[10] = {0,0,0,0,0,0,0,0,0,0};
     std::vector<std::string> fundHistory[10];
     bool fundCover(int index, int amount);
 };

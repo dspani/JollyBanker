@@ -29,14 +29,12 @@ class AccountTree {
 
     void displayHistory(int accountNumber) const;
     void displayFundHistory(int accountNumber, int fund) const;
-    void addToHistory(string& trans, int accNum, int fund) const;
+    void addToHistory(basic_string<char> trans, int accNum, int fund) const;
 
 
     // delete all information in AccountTree
     void clear();
 
-    // check if tree is empty
-    bool isEmpty() const;
 
     // Open an account
     bool openAccount (std::string &lastName, std::string &firstName, int accNum);
@@ -73,7 +71,7 @@ class AccountTree {
 
     };
 
-    AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
+    static AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
     bool retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const;
     static void clearHelper(AccountTree::Node* node);
     void displayHelper(AccountTree::Node* temp) const;

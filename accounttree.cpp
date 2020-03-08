@@ -83,7 +83,7 @@ void AccountTree::displayHistory(int accountNumber) const {
     retrieve(accountNumber, acc);
     cout << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
     for (int i = 0; i < 10; i++) {
-        cout << acc->fundName(i) << ": $" << acc->getFundAccount(i) << endl;
+        cout << Account::fundName(i) << ": $" << acc->getFundAccount(i) << endl;
         vector<string> fundHistory = acc->getFundHistory(i);
         for (auto it = fundHistory.begin();
         it != fundHistory.end(); ++it) {
@@ -92,7 +92,7 @@ void AccountTree::displayHistory(int accountNumber) const {
     }
 }
 
-void AccountTree::addToHistory(string& trans, int accNum, int fund) const {
+void AccountTree::addToHistory(basic_string<char> trans, int accNum, int fund) const {
     Account* acc;
     if (retrieve(accNum, acc)) {
         acc->setFundHistory(trans, fund);
@@ -101,14 +101,15 @@ void AccountTree::addToHistory(string& trans, int accNum, int fund) const {
 
 void AccountTree::displayFundHistory(int accountNumber, int fund) const {
     Account *acc;
-    retrieve(accountNumber, acc);
-    cout << "Displaying Transaction History for " << acc->getName()
-         << "'s " << acc->fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
-    vector<string> fundHistory = acc->getFundHistory(fund);
+    if (retrieve(accountNumber, acc)) {
+        cout << "Displaying Transaction History for " << acc->getName()
+             << "'s " << Account::fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
+        vector<string> fundHistory = acc->getFundHistory(fund);
 
-    for (auto it = fundHistory.begin();
-         it != fundHistory.end(); ++it) {
-        cout << "\t" << *it << endl;
+        for (auto it = fundHistory.begin();
+             it != fundHistory.end(); ++it) {
+            cout << "\t" << *it << endl;
+        }
     }
 }
 

@@ -4,16 +4,14 @@
 
 #include "account.h"
 
-Account::Account(string last, string first, int acc) :
+Account::Account(string& last, string& first, int acc) :
         lastName{ last }, firstName{ first }, accNum{ acc } {
-    for (int i = 0; i < 10; i++) {
+    for (auto& i: funds) {
         funds[i] = 0;
     }
 }
 
-Account::~Account() {
-
-}
+Account::~Account() = default;
 
 int Account::getAccNumber() {
     return this->accNum;
@@ -48,7 +46,7 @@ bool Account::setFundAccount(int index, int amount){
         return true;
     }
 }
-void Account::setFundHistory(string transaction, int fund) {
+void Account::setFundHistory(string& transaction, int fund) {
     fundHistory[fund].push_back(transaction);
 }
                                     // negative number
@@ -82,5 +80,6 @@ bool Account::fundCover(int index, int amount) {
 }
 
 ostream& operator<<(ostream& out, Account & acc) {
+
     return out;
 }
