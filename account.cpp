@@ -80,6 +80,5 @@ bool Account::fundCover(int index, int amount) {
 }
 
 ostream& operator<<(ostream& out, Account & acc) {
-
     return out;
 }

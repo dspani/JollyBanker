@@ -29,7 +29,7 @@ class Bank {
     void processTransactions(const string& fileName);
 
     // Display all bank balances
-    void displayAllBankBalances() const;
+    void displayAllBankBalances(ostringstream& ss);
 
   private:
     AccountTree accounts;

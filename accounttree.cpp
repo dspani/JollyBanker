@@ -2,6 +2,7 @@
 // Created by <Name> on <Date>.
 //
 
+#include <sstream>
 #include "accounttree.h"
 
 // empty
@@ -59,35 +60,35 @@ bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Ac
 }
 
 // Display information on all accounts
-void AccountTree::display() const {
-    cout << "Displaying Transaction History for All Accounts: " << endl;
+void AccountTree::display(ostringstream& ss) const{
+    ss << "Displaying Transaction History for All Accounts: \n";
     AccountTree::Node* node = root;
-    displayHelper(node);
+    displayHelper(node, ss);
     
 }
 
-void AccountTree::displayHelper(AccountTree::Node* temp) const {
+void AccountTree::displayHelper(AccountTree::Node* temp, ostringstream& ss) const {
     if (temp != nullptr) {
         if (temp->getLeft() != nullptr) {
-            displayHelper(temp->getLeft());
+            displayHelper(temp->getLeft(), ss);
         }
         if (temp->getRight() != nullptr) {
-            displayHelper(temp->getRight());
+            displayHelper(temp->getRight(), ss);
         }
-        displayHistory(temp->getAccountNumber());
+        displayHistory(temp->getAccountNumber(), ss);
     }
 }
 
-void AccountTree::displayHistory(int accountNumber) const {
+void AccountTree::displayHistory(int accountNumber, ostringstream& ss) const {
     Account* acc;
     retrieve(accountNumber, acc);
-    cout << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
+    ss << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
     for (int i = 0; i < 10; i++) {
-        cout << Account::fundName(i) << ": $" << acc->getFundAccount(i) << endl;
+        ss << Account::fundName(i) << ": $" << acc->getFundAccount(i) << endl;
         vector<string> fundHistory = acc->getFundHistory(i);
         for (auto it = fundHistory.begin();
         it != fundHistory.end(); ++it) {
-            cout << "\t" << *it << endl;
+            ss << "\t" << *it << endl;
         }
     }
 }
@@ -99,16 +100,16 @@ void AccountTree::addToHistory(basic_string<char> trans, int accNum, int fund) c
     }
 }
 
-void AccountTree::displayFundHistory(int accountNumber, int fund) const {
+void AccountTree::displayFundHistory(int accountNumber, int fund, ostringstream& ss) const {
     Account *acc;
     if (retrieve(accountNumber, acc)) {
-        cout << "Displaying Transaction History for " << acc->getName()
+        ss << "Displaying Transaction History for " << acc->getName()
              << "'s " << Account::fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
         vector<string> fundHistory = acc->getFundHistory(fund);
 
         for (auto it = fundHistory.begin();
              it != fundHistory.end(); ++it) {
-            cout << "\t" << *it << endl;
+            ss << "\t" << *it << endl;
         }
     }
 }

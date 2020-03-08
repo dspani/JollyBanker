@@ -25,10 +25,10 @@ class AccountTree {
     bool retrieve(const int& accountNumber, Account*& account) const;
 
     // Display information on all accounts
-    void display() const;
+    void display(ostringstream& ss) const;
 
-    void displayHistory(int accountNumber) const;
-    void displayFundHistory(int accountNumber, int fund) const;
+    void displayHistory(int accountNumber, ostringstream& ss) const;
+    void displayFundHistory(int accountNumber, int fund, ostringstream& ss) const;
     void addToHistory(basic_string<char> trans, int accNum, int fund) const;
 
 
@@ -74,7 +74,7 @@ class AccountTree {
     static AccountTree::Node* insertRecursive(Account* account, AccountTree::Node* node);
     bool retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const;
     static void clearHelper(AccountTree::Node* node);
-    void displayHelper(AccountTree::Node* temp) const;
+    void displayHelper(AccountTree::Node* temp, ostringstream& ss) const;
 
     Node* root;
 };
