@@ -14,7 +14,7 @@ using namespace std;
 
 class Account {
   public:
-    Account(string& last, string& first, int accNumber);
+    Account(string& last, string& first, int accNum);
     ~Account();
     int getAccNumber();
     string getName();
@@ -24,7 +24,6 @@ class Account {
     void setFundHistory(string& transaction, int fund);
     vector <string> getFundHistory(int index);
 
-    friend ostream& operator<<(ostream& out, Account& acc);
 
   private:
     string firstName;

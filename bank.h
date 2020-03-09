@@ -5,12 +5,11 @@
 #pragma once
 
 #include "accounttree.h"
+#include <cassert>
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
 #include <queue>
-#include <cassert>
-
 
 
 using namespace std;

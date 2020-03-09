@@ -2,7 +2,6 @@
 // Created by <Name> on <Date>.
 //
 
-#include <sstream>
 #include "accounttree.h"
 
 // empty
@@ -80,16 +79,19 @@ void AccountTree::displayHelper(AccountTree::Node* temp, ostringstream& ss) cons
 }
 
 void AccountTree::displayHistory(int accountNumber, ostringstream& ss) const {
-    Account* acc;
-    retrieve(accountNumber, acc);
-    ss << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
-    for (int i = 0; i < 10; i++) {
-        ss << Account::fundName(i) << ": $" << acc->getFundAccount(i) << endl;
-        vector<string> fundHistory = acc->getFundHistory(i);
-        for (auto it = fundHistory.begin();
-        it != fundHistory.end(); ++it) {
-            ss << "\t" << *it << endl;
+    Account *acc;
+    if (retrieve(accountNumber, acc)) {
+        ss << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
+        for (int i = 0; i < 10; i++) {
+            ss << Account::fundName(i) << ": $" << acc->getFundAccount(i) << endl;
+            vector<string> fundHistory = acc->getFundHistory(i);
+            for (auto & it : fundHistory) {
+                ss << "\t" << it << endl;
+            }
         }
+    }
+    else {
+        ss << "ERROR: Could not find account " << accountNumber << endl;
     }
 }
 
@@ -107,9 +109,8 @@ void AccountTree::displayFundHistory(int accountNumber, int fund, ostringstream&
              << "'s " << Account::fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
         vector<string> fundHistory = acc->getFundHistory(fund);
 
-        for (auto it = fundHistory.begin();
-             it != fundHistory.end(); ++it) {
-            ss << "\t" << *it << endl;
+        for (auto & it : fundHistory) {
+            ss << "\t" << it << endl;
         }
     }
 }
@@ -135,13 +136,13 @@ void AccountTree::clearHelper(AccountTree::Node* node) {
     }
 }
 
-bool AccountTree::openAccount(string &last, string &first, int accNum) {
+bool AccountTree::openAccount(string &lastName, string &firstName, int accNum) {
     //if root = null
     // add at root
     // if not go left or right based on account number
     Account *acc;
     if (!retrieve(accNum, acc)) {
-        acc = new Account(last, first, accNum);
+        acc = new Account(lastName, firstName, accNum);
         return insert(acc);
     }
     return false;
@@ -150,9 +151,11 @@ bool AccountTree::openAccount(string &last, string &first, int accNum) {
 // Deposit x amount to the account number
 bool AccountTree::deposit(int accNum, int fund, int amount) {
     Account *acc;
-    retrieve(accNum, acc);
-    acc->setFundAccount(fund, amount);
-    return true;
+    if (retrieve(accNum, acc)) {
+        acc->setFundAccount(fund, amount);
+        return true;
+    }
+    return false;
 }
 
 // Withdraw money from the account

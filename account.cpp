@@ -4,8 +4,8 @@
 
 #include "account.h"
 
-Account::Account(string& last, string& first, int acc) :
-        lastName{ last }, firstName{ first }, accNum{ acc } {
+Account::Account(string& last, string& first, int accNum) :
+        firstName{ first },lastName{ last },  accNum{ accNum } {
     for (auto& i: funds) {
         funds[i] = 0;
     }
@@ -37,15 +37,18 @@ bool Account::setFundAccount(int index, int amount){
     // correct to handle if [0] has insufficient funds
     // can pull the remaining amount from [1]
     // can also do other way around
+    bool success = false;
     int total = this->funds[index];
     if (total + amount < 0) {
-        return fundCover(index, amount);
+        success = fundCover(index, amount);
     }
     else {
         funds[index] += amount;
-        return true;
+        success = true;
     }
+    return success;
 }
+
 void Account::setFundHistory(string& transaction, int fund) {
     fundHistory[fund].push_back(transaction);
 }
@@ -79,6 +82,3 @@ bool Account::fundCover(int index, int amount) {
 
 }
 
-ostream& operator<<(ostream& out, Account & acc) {
-    return out;
-}
