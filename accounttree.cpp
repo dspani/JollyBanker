@@ -169,7 +169,7 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
 
 
 // Transfer money from x account to y account
-bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount) {
+bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount, ostringstream& ss) {
     Account* to;
     Account* from;
 
@@ -182,13 +182,13 @@ bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int
             }
         }
         else {
-            cout << "ERROR: Could not find Account " << toAcc;
-            cout << ". Transfer cancelled." << endl;
+            ss << "ERROR: Could not find Account " << toAcc;
+            ss << ". Transfer cancelled." << endl;
         }
     }
     else {
-        cout << "ERROR: Could not find Account " << fromAcc;
-        cout << ". Transfer cancelled." << endl;
+        ss << "ERROR: Could not find Account " << fromAcc;
+        ss << ". Transfer cancelled." << endl;
     }
     return false;
 }

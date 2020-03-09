@@ -15,35 +15,32 @@ Bank::~Bank() = default;
 void Bank::processTransactions(const string & fileName) {
     // adding to queue
     ostringstream ss;
-    if (strstr(fileName.c_str(), "In")) {
-        ifstream infile(fileName);
-        string line;
-        queue<string> transactions;
-        if (infile.is_open()) {
-            while (getline(infile, line)) {
-                // adding in to queue
-                transactions.push(line);
-            }
-            infile.close();
+    ofstream outfile("BankTransOut.txt");
+    ifstream infile(fileName);
+    string line;
+    queue<string> transactions;
+    if (infile.is_open()) {
+        while (getline(infile, line)) {
+            // adding in to queue
+            transactions.push(line);
         }
-
-        while (!transactions.empty()) {
-            process(accounts, transactions.front());
-            transactions.pop();
-        }
+        infile.close();
     }
-    else {
-        ofstream outfile(fileName);
 
-        displayAllBankBalances(ss);
-        outfile << ss.str();
-        outfile.close();
+    while (!transactions.empty()) {
+        process(accounts, transactions.front(), ss);
+        transactions.pop();
     }
+
+    displayAllBankBalances(ss);
+    outfile << ss.str();
+    outfile.close();
+    infile.close();
 }
 
 
 //processes single transactions
-void Bank::process(AccountTree& tree, string& transaction) {
+void Bank::process(AccountTree& tree, string& transaction, ostringstream& ss) {
     vector<string> parsed = parse(transaction);
     string transType = parsed[0];
     if (transType[0] == 'O') { // open
@@ -51,7 +48,7 @@ void Bank::process(AccountTree& tree, string& transaction) {
         int accNum = stoi(parsed[3]);
         if (!tree.openAccount(parsed[1], parsed[2], accNum)) {
             //fund 10 shows errors in opening accounts
-            cout << "ERROR: Account " + parsed[3] +
+            ss << "ERROR: Account " + parsed[3] +
                     " already open. Transaction refused." << endl;
         }
     } else if (transType[0] == 'D') { // deposit add it to history
@@ -81,7 +78,7 @@ void Bank::process(AccountTree& tree, string& transaction) {
         int fromFund = stoi(parsed[1]) % 10;
         int toAcc = stoi(parsed[3]) / 10;  // acc number ex)1234
         int fromAcc = stoi(parsed[1]) / 10;
-        if (tree.transfer(fromAcc, fromFund, toAcc, toFund, stoi(parsed[2]))) {
+        if (tree.transfer(fromAcc, fromFund, toAcc, toFund, stoi(parsed[2]), ss)) {
             tree.addToHistory(transaction, toAcc, toFund);  //check this
             tree.addToHistory(transaction, fromAcc, fromFund);
         } else {
@@ -90,12 +87,12 @@ void Bank::process(AccountTree& tree, string& transaction) {
         }
     } else if (transType[0] == 'H') { // history
         if (parsed[1].length() == 4) {
-            //tree.displayHistory(stoi(parsed[1]));
+            tree.displayHistory(stoi(parsed[1]), ss);
         } else {
             string accNum = parsed[1];
             int fundNumber = accNum.back() - 48;// turning ascii to number
             accNum.pop_back();
-            //tree.displayFundHistory(stoi(accNum), fundNumber);
+            tree.displayFundHistory(stoi(accNum), fundNumber, ss);
         }
     } else {
         cerr << "Invalid instruction";

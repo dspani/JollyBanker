@@ -46,7 +46,7 @@ class AccountTree {
     bool withdraw(int accNum, int fund, int amount);
 
     // Transfer money from x account to y account
-    bool transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount);
+    bool transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount, ostringstream& ss);
 
 
 
