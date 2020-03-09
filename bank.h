@@ -34,5 +34,6 @@ class Bank {
     AccountTree accounts;
     static vector<string> parse(string& transactions);
 
-    static void process(AccountTree& tree, string& transaction, ostringstream& ss);
+    static void process(AccountTree& tree,
+            string& transaction, ostringstream& ss);
 };

@@ -21,8 +21,11 @@ string Account::getName() {
     return this->lastName + " " + this->firstName;
 }
 string Account::fundName(int index) {
-    vector<string> fundName {"Monday Market", "Prime Money Market" , "Long-Term Bond" , "Short-Term Bond", "500 Index Fund", "Capital Value Fund",
-                             "Growth Equity Fund", "Growth Index Fund", "Value Fund", "Value Stock Index"};
+    vector<string> fundName {"Monday Market", "Prime Money Market"
+                             , "Long-Term Bond" , "Short-Term Bond",
+                             "500 Index Fund", "Capital Value Fund",
+                             "Growth Equity Fund", "Growth Index Fund",
+                             "Value Fund", "Value Stock Index"};
      return fundName[index];
 }
 

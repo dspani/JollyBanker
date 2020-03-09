@@ -1,114 +1,239 @@
-Sun Feb 23 23:11:45 PST 2020
+Sun Mar  8 23:13:01 PDT 2020
 *** compiling with clang++ to create an executable called myprogram
-clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)
-Target: x86_64-pc-linux-gnu
+clang version 7.0.1 (tags/RELEASE_701/final)
+Target: x86_64-unknown-linux-gnu
 Thread model: posix
-InstalledDir: /usr/bin
-accounttree.cpp:15:35: warning: unused parameter 'account' [-Wunused-parameter]
-bool AccountTree::insert(Account* account) { return true; }
-                                  ^
-accounttree.cpp:19:39: warning: unused parameter 'accountNumber' [-Wunused-parameter]
-bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
-                                      ^
-accounttree.cpp:19:64: warning: unused parameter 'account' [-Wunused-parameter]
-bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
-                                                               ^
-In file included from accounttree.cpp:5:
-./accounttree.h:41:18: warning: private field 'account' is not used [-Wunused-private-field]
-        Account* account;
-                 ^
-./accounttree.h:42:15: warning: private field 'right' is not used [-Wunused-private-field]
-        Node* right;
-              ^
-./accounttree.h:43:15: warning: private field 'left' is not used [-Wunused-private-field]
-        Node* left;
-              ^
-./accounttree.h:46:11: warning: private field 'root' is not used [-Wunused-private-field]
-    Node* root;
-          ^
-7 warnings generated.
-bank.cpp:13:46: warning: unused parameter 'fileName' [-Wunused-parameter]
-void Bank::processTransactions(const string& fileName) {}
-                                             ^
-In file included from bank.cpp:5:
-In file included from ./bank.h:7:
-./accounttree.h:41:18: warning: private field 'account' is not used [-Wunused-private-field]
-        Account* account;
-                 ^
-./accounttree.h:42:15: warning: private field 'right' is not used [-Wunused-private-field]
-        Node* right;
-              ^
-./accounttree.h:43:15: warning: private field 'left' is not used [-Wunused-private-field]
-        Node* left;
-              ^
-4 warnings generated.
-In file included from main.cpp:5:
-In file included from ./bank.h:7:
-./accounttree.h:41:18: warning: private field 'account' is not used [-Wunused-private-field]
-        Account* account;
-                 ^
-./accounttree.h:42:15: warning: private field 'right' is not used [-Wunused-private-field]
-        Node* right;
-              ^
-./accounttree.h:43:15: warning: private field 'left' is not used [-Wunused-private-field]
-        Node* left;
-              ^
-3 warnings generated.
+InstalledDir: /opt/rh/llvm-toolset-7.0/root/usr/bin
+account.cpp:8:9: warning: field 'lastName' will be initialized after field 'firstName' [-Wreorder]
+        lastName{ last }, firstName{ first }, accNum{ acc } {
+        ^
+account.cpp:82:45: warning: unused parameter 'acc' [-Wunused-parameter]
+ostream& operator<<(ostream& out, Account & acc) {
+                                            ^
+2 warnings generated.
 *** running clang-tidy using options from .clang-tidy
 LLVM (http://llvm.org/):
-  LLVM version 6.0.0
-  
+  LLVM version 7.0.1
   Optimized build.
-  Default target: x86_64-pc-linux-gnu
-  Host CPU: skylake
-10706 warnings generated.
-22500 warnings generated.
-34311 warnings generated.
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.cpp:9:1: warning: constructor does not initialize these fields: root [cppcoreguidelines-pro-type-member-init]
-AccountTree::AccountTree() = default;
-^
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.cpp:15:35: warning: parameter 'account' is unused [misc-unused-parameters]
-bool AccountTree::insert(Account* account) { return true; }
-                                  ^~~~~~~~
-                                   /*account*/
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.cpp:19:39: warning: parameter 'accountNumber' is unused [misc-unused-parameters]
-bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
-                                      ^~~~~~~~~~~~~~
-                                       /*accountNumber*/
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.cpp:19:64: warning: parameter 'account' is unused [misc-unused-parameters]
-bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
-                                                               ^~~~~~~~
-                                                                /*account*/
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.h:23:55: warning: non-const reference parameter 'account', make it const or use a pointer [google-runtime-references]
-    bool retrieve(const int& accountNumber, Account*& account) const;
-                                                      ^
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.h:23:55: warning: non-const reference parameter 'account', make it const or use a pointer [google-runtime-references]
-/mnt/c/UW/css342/jdelliot342/banker/bank.cpp:13:46: warning: parameter 'fileName' is unused [misc-unused-parameters]
-void Bank::processTransactions(const string& fileName) {}
-                                             ^~~~~~~~~
-                                              /*fileName*/
-/mnt/c/UW/css342/jdelliot342/banker/accounttree.h:23:55: warning: non-const reference parameter 'account', make it const or use a pointer [google-runtime-references]
-    bool retrieve(const int& accountNumber, Account*& account) const;
-                                                      ^
-Suppressed 34302 warnings (34302 in non-user code).
+  Default target: x86_64-unknown-linux-gnu
+  Host CPU: broadwell
+5179 warnings generated.
+12659 warnings generated.
+21593 warnings generated.
+30243 warnings generated.
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/account.cpp:44:5: warning: do not use 'else' after 'return' [readability-else-after-return]
+    else {
+    ^~~~~~
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/account.cpp:82:45: warning: parameter 'acc' is unused [misc-unused-parameters]
+ostream& operator<<(ostream& out, Account & acc) {
+                                            ^~~~
+                                             /*acc*/
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:5:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <sstream>
+^        ~~~~~~~~~
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:85:52: warning: Called C++ object pointer is uninitialized [clang-analyzer-core.CallAndMessage]
+    ss << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
+                                                   ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:66:5: note: Calling 'AccountTree::displayHelper'
+    displayHelper(node, ss);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:71:9: note: Assuming the condition is true
+    if (temp != nullptr) {
+        ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:71:5: note: Taking true branch
+    if (temp != nullptr) {
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:72:13: note: Assuming the condition is false
+        if (temp->getLeft() != nullptr) {
+            ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:72:9: note: Taking false branch
+        if (temp->getLeft() != nullptr) {
+        ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:75:13: note: Assuming the condition is false
+        if (temp->getRight() != nullptr) {
+            ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:75:9: note: Taking false branch
+        if (temp->getRight() != nullptr) {
+        ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:78:9: note: Calling 'AccountTree::displayHistory'
+        displayHistory(temp->getAccountNumber(), ss);
+        ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:83:5: note: 'acc' declared without an initial value
+    Account* acc;
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:84:5: note: Calling 'AccountTree::retrieve'
+    retrieve(accountNumber, acc);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:41:12: note: Calling 'AccountTree::retrieveHelper'
+    return retrieveHelper(root, acc, account);
+           ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:47:5: note: Taking true branch
+    if (node != nullptr) {
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:48:13: note: Assuming the condition is false
+        if (accountNumber == node->getAccountNumber()) {
+            ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:48:9: note: Taking false branch
+        if (accountNumber == node->getAccountNumber()) {
+        ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:52:18: note: Assuming the condition is false
+        else if (accountNumber < node->getAccountNumber()) {
+                 ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:52:14: note: Taking false branch
+        else if (accountNumber < node->getAccountNumber()) {
+             ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:56:23: note: Calling 'AccountTree::retrieveHelper'
+            success = retrieveHelper(node->getRight(), accountNumber, account);
+                      ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:47:5: note: Taking false branch
+    if (node != nullptr) {
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:59:5: note: Returning without writing to 'account'
+    return success;
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:56:23: note: Returning from 'AccountTree::retrieveHelper'
+            success = retrieveHelper(node->getRight(), accountNumber, account);
+                      ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:59:5: note: Returning without writing to 'account'
+    return success;
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:41:12: note: Returning from 'AccountTree::retrieveHelper'
+    return retrieveHelper(root, acc, account);
+           ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:41:5: note: Returning without writing to 'account'
+    return retrieveHelper(root, acc, account);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:84:5: note: Returning from 'AccountTree::retrieve'
+    retrieve(accountNumber, acc);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:85:52: note: Called C++ object pointer is uninitialized
+    ss << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
+                                                   ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:89:9: warning: use range-based for loop instead [modernize-loop-convert]
+        for (auto it = fundHistory.begin();
+        ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            (auto & it : fundHistory)
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:110:9: warning: use range-based for loop instead [modernize-loop-convert]
+        for (auto it = fundHistory.begin();
+        ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            (auto & it : fundHistory)
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:154:5: warning: Called C++ object pointer is uninitialized [clang-analyzer-core.CallAndMessage]
+    acc->setFundAccount(fund, amount);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:152:5: note: 'acc' declared without an initial value
+    Account *acc;
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:153:5: note: Calling 'AccountTree::retrieve'
+    retrieve(accNum, acc);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:41:12: note: Calling 'AccountTree::retrieveHelper'
+    return retrieveHelper(root, acc, account);
+           ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:47:9: note: Assuming the condition is false
+    if (node != nullptr) {
+        ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:47:5: note: Taking false branch
+    if (node != nullptr) {
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:59:5: note: Returning without writing to 'account'
+    return success;
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:41:12: note: Returning from 'AccountTree::retrieveHelper'
+    return retrieveHelper(root, acc, account);
+           ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:41:5: note: Returning without writing to 'account'
+    return retrieveHelper(root, acc, account);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:153:5: note: Returning from 'AccountTree::retrieve'
+    retrieve(accNum, acc);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.cpp:154:5: note: Called C++ object pointer is uninitialized
+    acc->setFundAccount(fund, amount);
+    ^
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.h:8:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <iostream>
+^        ~~~~~~~~~~
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.h:8:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <iostream>
+^        ~~~~~~~~~~
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/bank.h:8:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <cstdlib>
+^        ~~~~~~~~~
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/accounttree.h:8:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <iostream>
+^        ~~~~~~~~~~
+/home/NETID/duncanws/ucourses/css342/A5 JollyBanker/bank.h:8:1: warning: #includes are not sorted properly [llvm-include-order]
+#include <cstdlib>
+^        ~~~~~~~~~
+Suppressed 30231 warnings (30231 in non-user code).
 Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
 *** running myprogram
+The command line argument(s) was BrankTransIn.txt
 Done
-==4341== Memcheck, a memory error detector
-==4341== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==4341== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==4341== Command: ./myprogram
-==4341== 
-==4341== error calling PR_SET_PTRACER, vgdb might block
-Done
-==4341== 
-==4341== HEAP SUMMARY:
-==4341==     in use at exit: 0 bytes in 0 blocks
-==4341==   total heap usage: 2 allocs, 2 frees, 76,800 bytes allocated
-==4341== 
-==4341== All heap blocks were freed -- no leaks are possible
-==4341== 
-==4341== For counts of detected and suppressed errors, rerun with: -v
-==4341== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==25416== Memcheck, a memory error detector
+==25416== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==25416== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==25416== Command: ./myprogram BankTransIn.txt
+==25416== 
+The command line argument(s) was BankTransIn.txt
+==25416== Invalid read of size 8
+==25416==    at 0x4EF5CB8: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&) (in /usr/lib64/libstdc++.so.6.0.19)
+==25416==    by 0x402643: Account::fundName(int) (account.cpp:26)
+==25416==    by 0x404C69: AccountTree::displayFundHistory(int, int, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) const (accounttree.cpp:107)
+==25416==    by 0x4062C9: Bank::process(AccountTree&, std::string&, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) (bank.cpp:95)
+==25416==    by 0x40552D: Bank::processTransactions(std::string const&) (bank.cpp:31)
+==25416==    by 0x407F93: main (main.cpp:17)
+==25416==  Address 0x5a33078 is 14 bytes after a block of size 42 alloc'd
+==25416==    at 0x4C2A4C3: operator new(unsigned long) (vg_replace_malloc.c:344)
+==25416==    by 0x4EF4A18: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.19)
+==25416==    by 0x4EF62A0: char* std::string::_S_construct<char const*>(char const*, char const*, std::allocator<char> const&, std::forward_iterator_tag) (in /usr/lib64/libstdc++.so.6.0.19)
+==25416==    by 0x4EF66D7: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.19)
+==25416==    by 0x402467: Account::fundName(int) (account.cpp:25)
+==25416==    by 0x404C69: AccountTree::displayFundHistory(int, int, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) const (accounttree.cpp:107)
+==25416==    by 0x4062C9: Bank::process(AccountTree&, std::string&, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) (bank.cpp:95)
+==25416==    by 0x40552D: Bank::processTransactions(std::string const&) (bank.cpp:31)
+==25416==    by 0x407F93: main (main.cpp:17)
+==25416== 
+==25416== Invalid read of size 4
+==25416==    at 0x4EF5CBB: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&) (in /usr/lib64/libstdc++.so.6.0.19)
+==25416==    by 0x402643: Account::fundName(int) (account.cpp:26)
+==25416==    by 0x404C69: AccountTree::displayFundHistory(int, int, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) const (accounttree.cpp:107)
+==25416==    by 0x4062C9: Bank::process(AccountTree&, std::string&, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) (bank.cpp:95)
+==25416==    by 0x40552D: Bank::processTransactions(std::string const&) (bank.cpp:31)
+==25416==    by 0x407F93: main (main.cpp:17)
+==25416==  Address 0xfffffffffffffff8 is not stack'd, malloc'd or (recently) free'd
+==25416== 
+==25416== 
+==25416== Process terminating with default action of signal 11 (SIGSEGV)
+==25416==  Access not within mapped region at address 0xFFFFFFFFFFFFFFF8
+==25416==    at 0x4EF5CBB: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&) (in /usr/lib64/libstdc++.so.6.0.19)
+==25416==    by 0x402643: Account::fundName(int) (account.cpp:26)
+==25416==    by 0x404C69: AccountTree::displayFundHistory(int, int, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) const (accounttree.cpp:107)
+==25416==    by 0x4062C9: Bank::process(AccountTree&, std::string&, std::basic_ostringstream<char, std::char_traits<char>, std::allocator<char> >&) (bank.cpp:95)
+==25416==    by 0x40552D: Bank::processTransactions(std::string const&) (bank.cpp:31)
+==25416==    by 0x407F93: main (main.cpp:17)
+==25416==  If you believe this happened as a result of a stack
+==25416==  overflow in your program's main thread (unlikely but
+==25416==  possible), you can try to increase the size of the
+==25416==  main thread stack using the --main-stacksize= flag.
+==25416==  The main thread stack size used in this run was 8388608.
+==25416== 
+==25416== HEAP SUMMARY:
+==25416==     in use at exit: 12,643 bytes in 72 blocks
+==25416==   total heap usage: 440 allocs, 368 frees, 31,055 bytes allocated
+==25416== 
+==25416== LEAK SUMMARY:
+==25416==    definitely lost: 0 bytes in 0 blocks
+==25416==    indirectly lost: 0 bytes in 0 blocks
+==25416==      possibly lost: 0 bytes in 0 blocks
+==25416==    still reachable: 12,643 bytes in 72 blocks
+==25416==                       of which reachable via heuristic:
+==25416==                         stdstring          : 2,699 bytes in 57 blocks
+==25416==         suppressed: 0 bytes in 0 blocks
+==25416== Rerun with --leak-check=full to see details of leaked memory
+==25416== 
+==25416== For counts of detected and suppressed errors, rerun with: -v
+==25416== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+./simplecompile.sh: line 31: 25416 Segmentation fault      valgrind ./myprogram BankTransIn.txt
 *** cleaning up, deleting myprogram
-Sun Feb 23 23:11:52 PST 2020
+Sun Mar  8 23:13:35 PDT 2020

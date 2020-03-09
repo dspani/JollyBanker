@@ -55,8 +55,10 @@ void Bank::process(AccountTree& tree, string& transaction, ostringstream& ss) {
         string accNum = parsed[1];
         int fundNumber = accNum.back() - 48;//change ascii umber to number
         accNum.pop_back();
-        if (!tree.deposit(stoi(accNum), fundNumber, stoi(parsed[2]))) {
-            tree.addToHistory(transaction + " (Failed)", stoi(accNum),
+        if (!tree.deposit(stoi(accNum), fundNumber,
+                stoi(parsed[2]))) {
+            tree.addToHistory(transaction + " (Failed)",
+                    stoi(accNum),
                               fundNumber);
         } else {
             tree.addToHistory(transaction, stoi(accNum), fundNumber);
@@ -67,7 +69,8 @@ void Bank::process(AccountTree& tree, string& transaction, ostringstream& ss) {
         string accNum = parsed[1];
         int fundNumber = accNum.back() - 48;//change ascii number to number
         accNum.pop_back();
-        if (!tree.withdraw(stoi(accNum), fundNumber, stoi(parsed[2]))) { //and if width
+        if (!tree.withdraw(stoi(accNum), fundNumber, stoi(parsed[2]))) {
+            //and if width
             tree.addToHistory(transaction + " (Failed)", stoi(accNum), //
                               fundNumber);
         } else {
@@ -78,7 +81,8 @@ void Bank::process(AccountTree& tree, string& transaction, ostringstream& ss) {
         int fromFund = stoi(parsed[1]) % 10;
         int toAcc = stoi(parsed[3]) / 10;  // acc number ex)1234
         int fromAcc = stoi(parsed[1]) / 10;
-        if (tree.transfer(fromAcc, fromFund, toAcc, toFund, stoi(parsed[2]), ss)) {
+        if (tree.transfer(fromAcc, fromFund, toAcc, toFund,
+                stoi(parsed[2]), ss)) {
             tree.addToHistory(transaction, toAcc, toFund);  //check this
             tree.addToHistory(transaction, fromAcc, fromFund);
         } else {

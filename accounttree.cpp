@@ -20,7 +20,8 @@ bool AccountTree::insert(Account* account) {
     return true;
 }
 
-AccountTree::Node* AccountTree::insertRecursive(Account* account, AccountTree::Node* node) {
+AccountTree::Node* AccountTree::insertRecursive(Account* account,
+        AccountTree::Node* node) {
     if (node == nullptr) {
         node = new Node(account);
     }
@@ -41,7 +42,8 @@ bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
 
 }
 
-bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Account*& account) const {
+bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber,
+        Account*& account) const {
     bool success = false;
     if (node != nullptr) {
         if (accountNumber == node->getAccountNumber()) {
@@ -49,10 +51,12 @@ bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber, Ac
             account = node->getAccount();
         }
         else if (accountNumber < node->getAccountNumber()) {
-            success = retrieveHelper(node->getLeft(), accountNumber, account);
+            success = retrieveHelper(node->getLeft(), accountNumber,
+                    account);
         }
         else {
-            success = retrieveHelper(node->getRight(), accountNumber, account);
+            success = retrieveHelper(node->getRight(), accountNumber,
+                    account);
         }
     }
     return success;
@@ -66,7 +70,8 @@ void AccountTree::display(ostringstream& ss) const{
     
 }
 
-void AccountTree::displayHelper(AccountTree::Node* temp, ostringstream& ss) const {
+void AccountTree::displayHelper(AccountTree::Node* temp,
+        ostringstream& ss) const {
     if (temp != nullptr) {
         if (temp->getLeft() != nullptr) {
             displayHelper(temp->getLeft(), ss);
@@ -81,9 +86,11 @@ void AccountTree::displayHelper(AccountTree::Node* temp, ostringstream& ss) cons
 void AccountTree::displayHistory(int accountNumber, ostringstream& ss) const {
     Account *acc;
     if (retrieve(accountNumber, acc)) {
-        ss << "Displaying Transaction History for " << acc->getName() << " by fund." << endl;
+        ss << "Displaying Transaction History for " <<
+            acc->getName() << " by fund." << endl;
         for (int i = 0; i < 10; i++) {
-            ss << Account::fundName(i) << ": $" << acc->getFundAccount(i) << endl;
+            ss << Account::fundName(i) << ": $" <<
+                acc->getFundAccount(i) << endl;
             vector<string> fundHistory = acc->getFundHistory(i);
             for (auto & it : fundHistory) {
                 ss << "\t" << it << endl;
@@ -95,18 +102,21 @@ void AccountTree::displayHistory(int accountNumber, ostringstream& ss) const {
     }
 }
 
-void AccountTree::addToHistory(basic_string<char> trans, int accNum, int fund) const {
+void AccountTree::addToHistory(basic_string<char> trans,
+        int accNum, int fund) const {
     Account* acc;
     if (retrieve(accNum, acc)) {
         acc->setFundHistory(trans, fund);
     }
 }
 
-void AccountTree::displayFundHistory(int accountNumber, int fund, ostringstream& ss) const {
+void AccountTree::displayFundHistory(int accountNumber,
+        int fund, ostringstream& ss) const {
     Account *acc;
     if (retrieve(accountNumber, acc)) {
         ss << "Displaying Transaction History for " << acc->getName()
-             << "'s " << Account::fundName(fund) << ": $" << acc->getFundAccount(fund) << endl;
+             << "'s " << Account::fundName(fund) << ": $" <<
+             acc->getFundAccount(fund) << endl;
         vector<string> fundHistory = acc->getFundHistory(fund);
 
         for (auto & it : fundHistory) {
@@ -136,7 +146,8 @@ void AccountTree::clearHelper(AccountTree::Node* node) {
     }
 }
 
-bool AccountTree::openAccount(string &lastName, string &firstName, int accNum) {
+bool AccountTree::openAccount(string &lastName,
+        string &firstName, int accNum) {
     //if root = null
     // add at root
     // if not go left or right based on account number
@@ -172,7 +183,8 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
 
 
 // Transfer money from x account to y account
-bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int amount, ostringstream& ss) {
+bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc,
+        int toFund, int amount, ostringstream& ss) {
     Account* to;
     Account* from;
 
@@ -180,7 +192,8 @@ bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc, int toFund, int
         if (retrieve(toAcc, to)) {
             if (from->getFundAccount(fromFund) - amount >= 0) {
                 from->setFundAccount(fromFund, amount - (amount * 2));
-                to->setFundAccount(toFund, to->getFundAccount(toFund) + amount);
+                to->setFundAccount(toFund,
+                        to->getFundAccount(toFund) + amount);
                 return true;
             }
         }
