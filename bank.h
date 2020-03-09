@@ -1,5 +1,5 @@
 //
-// Created by <Name> on <Date>.
+// Created by Robin Seo and Duncan Spani on 3/9/2020.
 //
 
 #pragma once
@@ -14,9 +14,8 @@
 
 using namespace std;
 
-
 class Bank {
-  public:
+public:
     // Create Bank
     Bank();
 
@@ -30,10 +29,14 @@ class Bank {
     // Display all bank balances
     void displayAllBankBalances(ostringstream& ss);
 
-  private:
+private:
+    // AccountTree pointer
     AccountTree accounts;
+
+    // parsing the data when there is a space
     static vector<string> parse(string& transactions);
 
+    // process the transactions using the character beginning the line
     static void process(AccountTree& tree,
-            string& transaction, ostringstream& ss);
+                        string& transaction, ostringstream& ss);
 };

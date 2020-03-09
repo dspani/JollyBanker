@@ -1,5 +1,5 @@
 //
-// Created by changyeon seo on 2020/03/02.
+// Created by Robin Seo and Duncan Spani on 3/9/2020.
 //
 #pragma once
 #ifndef JOLLYBANKER_ACCOUNT_H

@@ -1,5 +1,5 @@
 //
-// Created by <Name> on <Date>.
+// Created by Robin Seo and Duncan Spani on 3/9/2020.
 //
 
 #include "bank.h"
