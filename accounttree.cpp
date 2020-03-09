@@ -4,8 +4,6 @@
 
 #include "accounttree.h"
 
-// empty
-
 AccountTree::AccountTree() : root{ nullptr } {
 }
 
@@ -14,12 +12,14 @@ AccountTree::~AccountTree() {
     clear();
 }
 
-// Insert new account
+//insert new account into account tree
 bool AccountTree::insert(Account* account) {
     root = insertRecursive(account, root);
     return true;
 }
 
+//recursive function to find the correct place to insert an account
+// sets right or sets left with new account
 AccountTree::Node* AccountTree::insertRecursive(Account* account,
         AccountTree::Node* node) {
     if (node == nullptr) {
@@ -35,13 +35,17 @@ AccountTree::Node* AccountTree::insertRecursive(Account* account,
 }
 
 // Retrieve account
-// returns true if successful AND *account points to account
+// returns true if successful AND *account points to
+// account containing account number
 bool AccountTree::retrieve(const int& accountNumber, Account*& account) const {
     int acc = accountNumber;
     return retrieveHelper(root, acc, account);
 
 }
 
+//recursive function to find account
+//recurses through tree until finds account containing accountNumber
+// return true if account number found and points account to correct account
 bool AccountTree::retrieveHelper(AccountTree::Node* node, int& accountNumber,
         Account*& account) const {
     bool success = false;
@@ -70,6 +74,7 @@ void AccountTree::display(ostringstream& ss) const{
     
 }
 
+//goes through tree finding each account and displaying account information
 void AccountTree::displayHelper(AccountTree::Node* temp,
         ostringstream& ss) const {
     if (temp != nullptr) {
@@ -83,6 +88,7 @@ void AccountTree::displayHelper(AccountTree::Node* temp,
     }
 }
 
+//displays the account history for all accounts based on account number
 void AccountTree::displayHistory(int accountNumber, ostringstream& ss) const {
     Account *acc;
     if (retrieve(accountNumber, acc)) {
@@ -102,6 +108,7 @@ void AccountTree::displayHistory(int accountNumber, ostringstream& ss) const {
     }
 }
 
+//adds the current transaction to the history associated with that account
 void AccountTree::addToHistory(basic_string<char> trans,
         int accNum, int fund) const {
     Account* acc;
@@ -110,6 +117,7 @@ void AccountTree::addToHistory(basic_string<char> trans,
     }
 }
 
+//displays history of account based on the fund number
 void AccountTree::displayFundHistory(int accountNumber,
         int fund, ostringstream& ss) const {
     Account *acc;
@@ -183,6 +191,7 @@ bool AccountTree::withdraw(int accNum, int fund, int amount) {
 
 
 // Transfer money from x account to y account
+// utilizes cover from account 0 and 1 or account 3 and 4
 bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc,
         int toFund, int amount, ostringstream& ss) {
     Account* to;
@@ -209,23 +218,32 @@ bool AccountTree::transfer(int fromAcc, int fromFund, int toAcc,
     return false;
 }
 
+//returns account number
 int AccountTree::Node::getAccountNumber(){
     return this->account->getAccNumber();
 }
+
+//returns accounts left node
 AccountTree::Node* AccountTree::Node::getLeft(){
     return this->left;
 }
+
+//sets current nodes left to a new node
 void AccountTree::Node::setLeft(AccountTree::Node* newNode) {
     this->left = newNode;        // this is Node obj not AccountTree obj
 }
-//return type / location/ name/ arg
+
+//sets current nodes right node to new node
 void AccountTree::Node::setRight(AccountTree::Node* newNode) {
     this->right = newNode;
 }
+
+//returns current nodes right node
 AccountTree::Node* AccountTree::Node::getRight(){
     return this->right;
 }
 
+//returns a pointer to the account located in the node
 Account* AccountTree::Node::getAccount(){
     return this->account;
 }

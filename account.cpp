@@ -17,9 +17,12 @@ int Account::getAccNumber() {
     return this->accNum;
 }
 
+//returns full name on account
 string Account::getName() {
     return this->lastName + " " + this->firstName;
 }
+
+//returns fund name based on index number
 string Account::fundName(int index) {
     vector<string> fundName {"Monday Market", "Prime Money Market"
                              , "Long-Term Bond" , "Short-Term Bond",
@@ -29,13 +32,18 @@ string Account::fundName(int index) {
      return fundName[index];
 }
 
+//returns a vector containing all instructions placed on that fund
 vector <string> Account::getFundHistory(int index) {
     return fundHistory[index];
 }
+
+// returns current amount held in fund based on index
 int Account::getFundAccount(int index) {
     return this->funds[index];
 }
 
+// sets fund to amount , amount can be positive or negative
+// if fund 0,1 or 3,4 can call fund cover to cover an overdraft
 bool Account::setFundAccount(int index, int amount){
     // correct to handle if [0] has insufficient funds
     // can pull the remaining amount from [1]
@@ -52,10 +60,12 @@ bool Account::setFundAccount(int index, int amount){
     return success;
 }
 
+//sets fund history in vector<string> with transaction
 void Account::setFundHistory(string& transaction, int fund) {
     fundHistory[fund].push_back(transaction);
 }
-                                    // negative number
+
+//check if its possible to cover funds from other fund account
 bool Account::fundCover(int index, int amount) {
     int alt;
     switch (index) {
@@ -80,8 +90,6 @@ bool Account::fundCover(int index, int amount) {
         funds[alt] += restAmount;
         return true;
     }
-    // add to history with an error message
     return false;
-
 }
 
